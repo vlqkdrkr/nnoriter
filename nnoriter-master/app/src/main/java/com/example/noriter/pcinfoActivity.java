@@ -8,9 +8,12 @@ package com.example.noriter;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.os.Handler;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentTransaction;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
+        import android.util.Log;
         import android.view.Gravity;
         import android.view.View;
         import android.widget.AdapterView;
@@ -52,7 +55,6 @@ public class pcinfoActivity extends AppCompatActivity {
 
     JSONArray peoples = null;
     String name;
-
     String Pc_name;
     String Pc_number;
     String Pc_address;
@@ -65,6 +67,8 @@ public class pcinfoActivity extends AppCompatActivity {
     int Pc_RAM;
     String Pc_Pc_main;
     String Pc_PC_menu;
+    double lo_x;
+    double lo_y;
 
     Handler handler = new Handler();
 
@@ -87,7 +91,8 @@ public class pcinfoActivity extends AppCompatActivity {
         Pc_RAM = intent.getIntExtra("RAM",0);
         Pc_Pc_main = intent.getStringExtra("Pc_main");
         Pc_PC_menu = intent.getStringExtra("PC_menu");
-
+        lo_x=intent.getDoubleExtra("lo_x",0);
+        lo_y=intent.getDoubleExtra("lo_y",0);
         TextView nameTextView = (TextView) findViewById(R.id.pcinfo_name);
         TextView numberTextView = (TextView) findViewById(R.id.pcinfo_number);
         TextView addressTextView = (TextView) findViewById(R.id.pcinfo_address);
@@ -122,6 +127,7 @@ public class pcinfoActivity extends AppCompatActivity {
         TagRecyclerView.setAdapter(tagAdapter);
         tagAdapter.notifyDataSetChanged();
 
+        callmap();
         //Tab 관리
         TabHost tabHost1 = (TabHost) findViewById(R.id.TabHost) ;
         tabHost1.setup() ;
@@ -245,5 +251,18 @@ public class pcinfoActivity extends AppCompatActivity {
                 int pindex = item.getpindex();
             }
         });
+    }
+    private void callmap() {
+        fragment2 frag2 = new fragment2();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lo_x",lo_x);
+        bundle.putDouble("lo_y",lo_y);
+        bundle.putString("name",name);
+        Log.i("something","넣은것"+lo_x+"@"+lo_y);
+        frag2.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.info_map, frag2);
+        fragmentTransaction.commit();
     }
 }

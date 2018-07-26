@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-    <string name="app_name">noriter</string>
+    <string name="app_name">noriter_merge</string>
     <string name="banner_ad_unit_id">ca-app-pub-6857486624843975/8848820714</string>
+    <string name="str_done">완료</string>
     //지역 데이터
 
     <string-array name="korea">

@@ -30,13 +30,18 @@
         <activity android:name=".detailSearchActivity"></activity>
         <activity android:name=".EventActivity"></activity>
         <activity android:name=".FavoritesActivity"></activity>
-        <activity android:name=".NearActivity"></activity>
+        <activity
+            android:name=".NearActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
         <activity android:name="pclistActivity"></activity>
         <activity android:name="pcinfoActivity"></activity>
         <activity android:name="pcinfo_menu"></activity>
         <activity android:name="Event_detail_Activity"></activity>
         <activity android:name="signupActivity"></activity>
         <activity android:name="signinActivity"></activity>
+
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
