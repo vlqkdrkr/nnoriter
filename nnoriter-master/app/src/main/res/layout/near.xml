@@ -32,7 +32,6 @@
             android:background="@color/noritercolor"
             android:text="" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/near_nmapview"
         android:layout_width="match_parent"

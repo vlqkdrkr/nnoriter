@@ -76,7 +76,7 @@ public class pcinfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         getSupportActionBar().setTitle("PC방 정보");
-        setContentView(R.layout.pcinfo);
+        setContentView(R.layout.pcinfo2);
         //final TextView name = (TextView) findViewById(R.id.pcinfo_name);
         Intent intent = getIntent();
         Pc_name = intent.getStringExtra("name");
@@ -112,10 +112,10 @@ public class pcinfoActivity extends AppCompatActivity {
 
         //태그 관리
         TagViewAdapter tagAdapter = new TagViewAdapter();
-        RecyclerView TagRecyclerView = (RecyclerView) findViewById(R.id.pcinfo_tagView);
+        //RecyclerView TagRecyclerView = (RecyclerView) findViewById(R.id.pcinfo_tagView);
         LinearLayoutManager TagLayoutManager = new LinearLayoutManager(getApplicationContext());
         TagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        TagRecyclerView.setLayoutManager(TagLayoutManager);
+        //TagRecyclerView.setLayoutManager(TagLayoutManager);
         if(Pc_Card == 1)
             tagAdapter.add(getDrawable(R.drawable.tag_card_on));
         if(Pc_Charger == 1)
@@ -124,7 +124,7 @@ public class pcinfoActivity extends AppCompatActivity {
             tagAdapter.add(getDrawable(R.drawable.tag_office_on));
         if(Pc_Printer == 1)
             tagAdapter.add(getDrawable(R.drawable.tag_printer_on));
-        TagRecyclerView.setAdapter(tagAdapter);
+        //TagRecyclerView.setAdapter(tagAdapter);
         tagAdapter.notifyDataSetChanged();
 
         callmap();
@@ -258,7 +258,6 @@ public class pcinfoActivity extends AppCompatActivity {
         bundle.putDouble("lo_x",lo_x);
         bundle.putDouble("lo_y",lo_y);
         bundle.putString("name",name);
-        Log.i("something","넣은것"+lo_x+"@"+lo_y);
         frag2.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

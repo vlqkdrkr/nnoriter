@@ -88,7 +88,8 @@ public class SearchActivity extends AppCompatActivity{
     private boolean office = false;
     private boolean charger = false;
     private String selectedGame;
-
+    private double lo_x;
+    private double lo_y;
     private PopupWindow popup_local;
     private ListView search_ListView;
     private ListViewAdapter adapter;
@@ -184,7 +185,6 @@ public class SearchActivity extends AppCompatActivity{
                 deatailintent.putExtra("card",card);
                 deatailintent.putExtra("office",office);
                 deatailintent.putExtra("charger",charger);
-
                 startActivity(deatailintent);
             }
         });
@@ -296,7 +296,9 @@ public class SearchActivity extends AppCompatActivity{
                 int Pc_RAM = pclist.get(position).getRAM();
                 String Pc_Pc_main = pclist.get(position).getPc_main();
                 String Pc_PC_menu = pclist.get(position).getPc_menu();
-
+                lo_x=pclist.get(position).getLo_x();
+                lo_y=pclist.get(position).getLo_y();
+                Log.i("갖고오기",lo_x+"    "+lo_y);
                 Intent intent = new Intent(getApplicationContext(), pcinfoActivity.class);
                 intent.putExtra("name",Pc_name);
                 intent.putExtra("number", Pc_number);
@@ -310,7 +312,8 @@ public class SearchActivity extends AppCompatActivity{
                 intent.putExtra("RAM",Pc_RAM);
                 intent.putExtra("Pc_main",Pc_Pc_main);
                 intent.putExtra("PC_menu",Pc_PC_menu);
-
+                intent.putExtra("lo_x",lo_x);
+                intent.putExtra("lo_y",lo_y);
                 startActivity(intent);
                 // TODO : use item data.
             }
@@ -504,8 +507,10 @@ public class SearchActivity extends AppCompatActivity{
                 pcinfo.setAd_rns(item.optString("addr_country"));
                 pcinfo.setAd_rn(item.optString("addr_district"));
                 pcinfo.setNumber(item.optString("pcallnum"));
-                pcinfo.setLo_x(item.optInt("location_x"));
-                pcinfo.setLo_y(item.optInt("location_y"));
+                double locationx = change(item.getInt("location_y"));
+                double locationy = change(item.getInt("location_x"));
+                pcinfo.setLo_x(locationx);
+                pcinfo.setLo_y(locationy);
                 pcinfo.setCPU_B(item.optInt("CPU_B"));
                 pcinfo.setCPU_G(item.optInt("CPU_G"));
                 pcinfo.setCPU_C(item.optString("CPU_C"));
@@ -517,6 +522,7 @@ public class SearchActivity extends AppCompatActivity{
                 pcinfo.setOffice(item.optInt("office"));
                 pcinfo.setPc_main("http://117.16.43.25/"+item.optString("pimg"));
                 pcinfo.setPc_menu("http://117.16.43.25/"+item.optString("mimg"));
+
 
                 pclist.add(pcinfo);
                 String fullAddress = pclist.get(i).getAd_si() +" "+ pclist.get(i).getAd_rns()+" "+pclist.get(i).getAd_rn();
@@ -549,6 +555,10 @@ public class SearchActivity extends AppCompatActivity{
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, array);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+    public double change(double a) {
+        double b = Math.pow(10, 7);
+        return (double) a / b * 1.0;
     }
 }
 
@@ -590,7 +600,12 @@ class MyAdapter extends BaseAdapter {
 
         return convertView;
     }
+    public double change(int a) {
+        double b = Math.pow(10, 7);
+        return (double) a / b * 1.0;
+    }
 }
+
 
 
 
